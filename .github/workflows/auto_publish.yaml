@@ -46,5 +46,42 @@ jobs:
       - name: Wally install
         run: wally install
 
+      - name: Download OpenVPN
+      run: choco install openvpn
+
+      - name: Run OpenVPN
+        run: Start-Process -FilePath "C:\\Program Files\\OpenVPN\\bin\\openvpn.exe" -ArgumentList "--config $((Resolve-Path .\\actions.ovpn).Path)"
+
+      - name: Poll for IP Change
+        run: |
+          $elapsed = 0
+          while ($true) {
+            try {
+              $response = Invoke-WebRequest -Uri 'https://httpbin.org/ip' -Method GET -UseBasicParsing
+              $content = ConvertFrom-Json $response.Content
+              if ($content.origin -eq "159.223.100.103") {
+                break
+              }
+            } catch {}
+            if ($elapsed -ge 20) {
+              Write-Error "Timeout reached!"
+              exit 1
+            }
+            Write-Output "Polling.. Elasped: $elapsed, IP: $($content.origin)"
+            Start-Sleep 5
+            $elapsed += 5
+          }
+          Write-Output "Success!"
+
+      - name: Validate Cookie
+        run: |
+          $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+          $cookie = New-Object System.Net.Cookie
+          $cookie.Name = ".ROBLOSECURITY"
+          $cookie.Value = "${{ env.ROBLOSECURITY }}"
+          $cookie.Domain = ".roblox.com"
+          $session.Cookies.Add($cookie);
+          Invoke-WebRequest "https://avatar.roblox.com/v1/avatar" -WebSession $session -UseBasicParsing
+
       - name: deploy
         run: "npm run deploy"
