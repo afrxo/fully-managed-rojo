@@ -22,7 +22,7 @@ jobs:
   compile-project:
     name: compile project
     needs: extract-branch
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: ./
