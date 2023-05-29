@@ -2,7 +2,7 @@
     "assets": 13579629689,
 
     "placeId": {
-        "main": {
+        "master": {
             "default": [13549677246],
             "dungeon": [13549678095]
         },
@@ -14,7 +14,7 @@
     },
 
     "universeId": {
-        "main": 4709157967,
+        "master": 4709157967,
         "testing": 4709157967
     }
 }

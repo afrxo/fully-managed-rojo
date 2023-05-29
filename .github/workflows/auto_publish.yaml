@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'testing'
-      - 'main'
+      - 'master'
 
 jobs:
   extract-branch:
