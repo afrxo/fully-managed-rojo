@@ -1,0 +1,30 @@
+{
+  "name": "main",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Common": {
+        "$path": "src/main/shared"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/main/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/main/client"
+        }
+      }
+    },
+
+    "Workspace": {},
+    "Lighting": {},
+    "ReplicatedFirst": {}
+  }
+}

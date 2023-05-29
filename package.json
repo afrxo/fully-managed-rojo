@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"test": "echo testing for more: $BRANCH, $TEST_VARIABLE",
+
+		"build": "bash build.sh",
+		"publish": "bash publish.sh",
+		"deploy": "npm run build && npm run publish "
+	}
+}

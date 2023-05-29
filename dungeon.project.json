@@ -1,0 +1,30 @@
+{
+  "name": "dungeon",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Common": {
+        "$path": "src/dungeon/shared"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/dungeon/server"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/dungeon/client"
+        }
+      }
+    },
+    
+    "Workspace": {},
+    "Lighting": {},
+    "ReplicatedFirst": {}
+  }
+}

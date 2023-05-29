@@ -1,0 +1,50 @@
+name: "build project"
+
+on:
+  push:
+    branches:
+      - 'testing'
+      - 'main'
+
+jobs:
+  extract-branch:
+      name: "branch extraction"
+      runs-on: ubuntu-latest
+
+      outputs:
+        branch: ${{ steps.extract_branch.outputs.branch }}
+      steps:
+        - name: Extract branch name
+          shell: bash
+          run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+          id: extract_branch
+
+  compile-project:
+    name: compile project
+    needs: extract-branch
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    environment:
+      name: ${{ needs.extract-branch.outputs.branch }}
+    env:
+      ROBLOSECURITY: ${{ secrets.ROBLOSECURITY }}
+      RBX_API_KEY: ${{ secrets.RBX_API_KEY }}
+      BRANCH: ${{ needs.extract-branch.outputs.branch }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '19.x'
+
+      - name: Install Aftman
+        uses: ok-nick/setup-aftman@v0.3.0
+
+      - name: Wally install
+        run: wally install
+
+      - name: deploy
+        run: "npm run deploy"
