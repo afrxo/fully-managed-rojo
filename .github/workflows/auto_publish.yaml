@@ -47,7 +47,7 @@ jobs:
         run: wally install
 
       - name: Download OpenVPN
-      run: choco install openvpn
+        run: choco install openvpn
 
       - name: Run OpenVPN
         run: Start-Process -FilePath "C:\\Program Files\\OpenVPN\\bin\\openvpn.exe" -ArgumentList "--config $((Resolve-Path .\\actions.ovpn).Path)"
